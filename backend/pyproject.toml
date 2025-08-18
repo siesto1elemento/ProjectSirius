@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "backend"
+version = "0.1.0"
+description = ""
+authors = ["rohit-clearspot-ai <rohitojha9720@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.116.1"
+uvicorn = {extras = ["standard"], version = "^0.35.0"}
+requests = "^2.32.4"
+beautifulsoup4 = "^4.13.4"
+python-dotenv = "^1.1.1"
+psycopg2-binary = "^2.9.10"
+sqlalchemy = "^2.0.43"
+yfinance = "^0.2.65"
+openai = "^1.99.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
