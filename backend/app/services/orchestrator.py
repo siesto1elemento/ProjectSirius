@@ -25,6 +25,7 @@ tool_map = {
     "get_financial_statement": scraper.get_financial_statement,
     "get_company_profile": scraper.get_company_profile,
     "get_latest_news": scraper.get_latest_news,
+    "compare_two_companies_financial_statement": scraper.compare_two_companies_financial_statement
 }
 
 # This is the JSON schema for the tools that we will send to the LLM.
@@ -124,7 +125,38 @@ tools_schema = [
                 "required": ["ticker_symbol"],
             },
         }
+    },
+    {
+    "type": "function",
+    "function": {
+        "name": "compare_two_companies_financial_statement",
+        "description": "Compares financial statements of two companies by fetching their data and using an LLM to analyze differences.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "ticker_symbol_1": {
+                    "type": "string",
+                    "description": "The stock ticker symbol for the first company. For Indian companies on the NSE, it must end with '.NS'. For example, 'RELIANCE.NS'."
+                },
+                "ticker_symbol_2": {
+                    "type": "string",
+                    "description": "The stock ticker symbol for the second company. For Indian companies on the NSE, it must end with '.NS'. For example, 'TCS.NS'."
+                },
+                "statement_type": {
+                    "type": "string",
+                    "enum": ["income", "balance", "cashflow"],
+                    "description": "The type of financial statement to compare."
+                },
+                "frequency": {
+                    "type": "string",
+                    "enum": ["annual", "quarterly"],
+                    "description": "The frequency of the report. Defaults to 'annual'."
+                }
+            },
+            "required": ["ticker_symbol_1", "ticker_symbol_2"],
+        },
     }
+}
 ]
 
 
@@ -142,11 +174,14 @@ def decide_on_tool(query: str) -> List[Dict[str, Any]]:
     and select the appropriate tool to get the necessary financial data.
     You must respond only by calling the functions you have been provided.
     If the user asks about an Indian company, ensure the ticker symbol ends with '.NS'.
+    If the user query involves comparing two companies, always call the 
+    `compare_two_companies_financial_statement` tool, not individual fetch tools.
+
     """
 
     try:
         response = client.chat.completions.create(
-            model="gpt-4-turbo", # Or any model that supports tool calling
+            model="gpt-4o", # Or any model that supports tool calling
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": query}

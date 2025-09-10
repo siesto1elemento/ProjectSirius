@@ -138,3 +138,71 @@ The success of Project Sirius (MVP) will be measured by:
 *   **Advanced Visualizations:** Introduce more interactive charts and data visualization tools.
 *   **Portfolio Management:** Allow users to track their own investment portfolios and analyze their performance.
 *   **Community Features:** Create a space for users to share analysis, create public watchlists, and discuss investment strategies.
+
+
+
+## 9. Functions Used
+
+### `get_stock_price_data`
+**Usecase:** To retrieve historical and real-time stock price information (Open, High, Low, Close, Volume) for a specific ticker. This is fundamental for technical analysis, charting, and calculating historical returns and volatility.
+
+### `get_price_earning_data`
+**Usecase:** To fetch the Price-to-Earnings (P/E) ratio of a company, both current and historical. This is a key valuation metric used to determine if a stock is relatively overvalued or undervalued compared to its earnings, its own history, or its industry peers.
+
+### `get_financial_statement`
+**Usecase:** To pull a company's core financial documents: the Income Statement, Balance Sheet, and Cash Flow Statement. This is essential for fundamental analysis to assess a company's profitability, financial health, and operational efficiency.
+
+### `get_company_profile`
+**Usecase:** To obtain descriptive information about a company, including its business summary, industry, sector, headquarters location, and key executives. This helps an investor understand the nature of the business they are investing in.
+
+### `get_latest_news`
+**Usecase:** To retrieve recent news articles, press releases, and market-moving headlines related to a specific company. This allows investors to stay informed about events that could impact the stock price, such as earnings announcements, product launches, or management changes.
+
+### `compare_two_companies_financial_statement`
+**Usecase:** To perform a side-by-side comparison of the financial statements of two different companies, typically competitors in the same industry. This is used for competitive analysis to identify which company is performing better on key financial metrics.
+
+### `get_dividend_data`
+**Usecase:** To get a company's dividend history, including dividend per share, dividend yield, and payout ratio. This is crucial for income-focused investors looking for stable, dividend-paying stocks.
+
+### `get_financial_ratios`
+**Usecase:** To calculate or retrieve a wide range of financial ratios (e.g., Debt-to-Equity, Return on Equity (ROE), Price-to-Book (P/B), Current Ratio). These ratios provide a quick, standardized way to evaluate a company's performance and financial health across different areas like profitability, liquidity, and solvency.
+
+### `compare_with_industry_peers`
+**Usecase:** To benchmark a company's key financial metrics and valuation ratios against the industry average or a specific set of competitors. This helps to contextualize the company's performance and determine if it's an industry leader or laggard.
+
+### `calculate_dcf_valuation`
+**Usecase:** To perform a Discounted Cash Flow (DCF) analysis. This is a valuation method used to estimate a company's intrinsic value based on projections of its future free cash flows. The result helps an investor decide if the stock is currently trading above or below its "fair value."
+
+### `get_historical_performance`
+**Usecase:** To analyze a stock's past price performance over various timeframes (e.g., 1-year, 5-year, 10-year returns). This helps in understanding the stock's historical growth and volatility, although past performance is not indicative of future results.
+
+### `analyze_growth_trends`
+**Usecase:** To analyze the historical trends of key growth metrics like revenue, earnings per share (EPS), and free cash flow. This helps in assessing the consistency and sustainability of a company's growth trajectory.
+
+### `get_esg_scores`
+**Usecase:** To retrieve a company's Environmental, Social, and Governance (ESG) ratings from various agencies. This is used by socially conscious investors to evaluate a company's sustainability, ethical impact, and non-financial risks.
+
+### `calculate_risk_metrics`
+**Usecase:** To compute key risk metrics for a stock, such as Beta (market volatility), Standard Deviation (price volatility), and the Sharpe Ratio (risk-adjusted return). This helps in quantifying the risk associated with an investment.
+
+### `suggest_portfolio_allocation`
+**Usecase:** To generate a sample asset allocation strategy based on a user's risk tolerance, investment horizon, and financial goals. This is a foundational step in building a diversified investment portfolio.
+
+### `analyze_sector_trends`
+**Usecase:** To analyze the overall health, growth prospects, and emerging trends of a specific industry or sector. This is used for a "top-down" investment approach, where an investor first identifies promising sectors and then looks for the best companies within them.
+
+### `assess_management_quality`
+**Usecase:** To gather and analyze information about a company's leadership team, such as their track record, tenure, capital allocation decisions, and shareholder communication. This is a qualitative assessment crucial for long-term investment success.
+
+### `analyze_competitive_advantage`
+**Usecase:** To identify and evaluate a company's sustainable competitive advantages, often referred to as its "economic moat" (e.g., brand strength, network effects, cost advantages). This helps determine a company's ability to fend off competition and sustain long-term profitability.
+
+### `estimate_fair_value`
+**Usecase:** To calculate an estimated intrinsic or "fair" value for a stock using multiple valuation models (e.g., DCF, P/E multiples, P/B multiples). This provides a price target that can be compared against the current market price.
+
+### `get_economic_indicators`
+**Usecase:** To retrieve major macroeconomic data points like GDP growth rates, inflation (CPI), unemployment rates, and interest rates. This helps investors understand the broader economic environment that could influence corporate earnings and stock market performance.
+
+### `get_insider_transactions`
+**Usecase:** To track the buying and selling of company stock by its own executives, directors, and large shareholders. Significant insider buying can be a positive signal, while heavy selling might be a red flag.
+

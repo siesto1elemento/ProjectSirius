@@ -1,5 +1,6 @@
 from typing import Dict, Any, List
 import yfinance as yf
+from openai import OpenAI
 
 
 def get_stock_price_data(ticker_symbol: str) -> Dict[str, Any]:
@@ -147,4 +148,67 @@ def get_latest_news(ticker_symbol: str) -> List[Dict[str, Any]]:
 
     except Exception as e:
         return [{"error": f"An error occurred for ticker '{ticker_symbol}': {e}"}]
+
+
+def compare_two_companies_financial_statement(
+    ticker_symbol_1: str,
+    ticker_symbol_2: str,
+    statement_type: str,
+    frequency: str = "annual"
+) -> Dict[str, Any]:
+    """
+    Compares financial statements of two companies by fetching their data and asking the LLM for analysis.
+
+    :param ticker_symbol_1: First company ticker (e.g., 'RELIANCE.NS').
+    :param ticker_symbol_2: Second company ticker (e.g., 'TCS.NS').
+    :param statement_type: One of 'income', 'balance', or 'cashflow'.
+    :param frequency: 'annual' or 'quarterly'. Default: 'annual'.
+    """
+    client = OpenAI()
+    # Step 1: Fetch both statements
+    data1 = get_financial_statement(ticker_symbol_1, statement_type, frequency)
+    data2 = get_financial_statement(ticker_symbol_2, statement_type, frequency)
+
+    if "error" in data1:
+        return {"error": f"Failed to fetch data for {ticker_symbol_1}", "details": data1}
+    if "error" in data2:
+        return {"error": f"Failed to fetch data for {ticker_symbol_2}", "details": data2}
+
+    # Step 2: Ask the LLM to compare
+    prompt = f"""
+    Compare the following {frequency} {statement_type} statements of two companies.
+
+    Company 1 ({ticker_symbol_1}):
+    {data1}
+
+    Company 2 ({ticker_symbol_2}):
+    {data2}
+
+    Provide a clear comparison of key metrics, highlight major differences,
+    and state which company is stronger financially in this statement.
+    """
+
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",  # lightweight model for analysis
+            messages=[
+                {"role": "system", "content": "You are a financial analyst."},
+                {"role": "user", "content": prompt}
+            ]
+        )
+
+        comparison_text = response.choices[0].message.content
+
+        return {
+            "company_1": ticker_symbol_1,
+            "company_2": ticker_symbol_2,
+            "statement_type": statement_type,
+            "frequency": frequency,
+            "comparison": comparison_text
+        }
+
+    except Exception as e:
+        return {"error": f"LLM comparison failed: {e}"}
+
+
 

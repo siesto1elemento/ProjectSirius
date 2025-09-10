@@ -24,7 +24,7 @@ def handle_chat(chat_query: ChatQuery):
     if not tool_calls:
         # The LLM didn't choose a tool, maybe it's a greeting or general question.
         # For now, we'll return a simple response.
-        return ChatResponse(response="I can only fetch financial data. Please ask me about a specific company.")
+        return ChatResponse(response="I can only fetch financial data.")
 
     if "error" in tool_calls[0]:
         error_detail = tool_calls[0]["error"]
